@@ -8,6 +8,6 @@ namespace NodeTransportationLimited.Graphs
 {
     class PathTraveler
     {
-
+        // algo här
     }
 }

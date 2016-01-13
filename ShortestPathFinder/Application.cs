@@ -12,7 +12,7 @@
 // finns i denna fil.
 
 namespace NodeTransportationLimited.Graphs.ShortestPathFinder
-{
+{    
 /// <summary>
 /// Denna klass startar Shortest Path Finder-programmet. <b>VARNING: Inga
 /// ändringar får göras till denna klass förrutom där det anges att det är
@@ -40,20 +40,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder
             string edgesStr = System.Console.ReadLine();
             string startEndStr = System.Console.ReadLine();
             string output = null;
-
-            if (
-            nrNodesStr == "8" &&
-            edgesStr == "0 1, 1 2, 2 3, 3 4, 4 5, 5 6, 6 7" &&
-            startEndStr == "0 7"
-            ) {
-                output = "0, 1, 2, 3, 4, 5, 6, 7";
-            } else if (
-              nrNodesStr == "6" &&
-              edgesStr == "0 1, 0 2, 1 2, 2 3, 2 4, 3 5" &&
-              startEndStr == "0 4"
-              ) {
-                output = "0, 2, 4";
-            }
+           
 
             System.Console.WriteLine(output);
 

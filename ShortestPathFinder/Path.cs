@@ -8,10 +8,6 @@ namespace NodeTransportationLimited.Graphs
 {
     class Path
     {
-        public Path()
-        {
-
-        }
-        public Edge[] Edges { get; set; }
+        public Stack<Connection> ConnectionStack = new Stack<Connection>(262144);
     }
 }

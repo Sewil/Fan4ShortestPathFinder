@@ -8,6 +8,6 @@ namespace NodeTransportationLimited.Graphs
 {
     class Node
     {
-        public Node[] Neighbours { get; set; }        
+        public int Id { get; set; }
     }
 }

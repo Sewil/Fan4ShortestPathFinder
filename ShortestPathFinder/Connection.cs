@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace NodeTransportationLimited.Graphs
 {
-    class Edge
+    class Connection
     {
-
-        public Edge(Node node1, Node node2)
+        public Connection(Node node1, Node node2)
         {
             Node1 = node1;
             Node2 = node2;
