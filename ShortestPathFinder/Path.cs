@@ -8,6 +8,7 @@ namespace NodeTransportationLimited.Graphs
 {
     class Path
     {
-        public Stack<Connection> ConnectionStack = new Stack<Connection>(262144);
+        
+	public List<Connection> listOfPath = new List<Connection>();
     }
 }

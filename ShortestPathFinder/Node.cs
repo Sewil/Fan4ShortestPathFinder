@@ -8,6 +8,10 @@ namespace NodeTransportationLimited.Graphs
 {
     class Node
     {
+		public Node(int ID)
+		{
+			Id = ID;
+		}
         public int Id { get; set; }
     }
 }
