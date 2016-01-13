@@ -39,7 +39,7 @@ namespace NodeTransportationLimited.Graphs
 		
 		public static Path Run_Algorithm(Node firstNode, Node endNode)
 		{
-			
+            return null;
 		}
 	}
 }
