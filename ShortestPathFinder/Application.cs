@@ -35,7 +35,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder
         /// </summary>
         public static void Run()
         {
-            System.Console.WriteLine("Provide graph data now.");
+            Console.WriteLine("Provide graph data now.");
 
             int nodeLength = int.Parse(System.Console.ReadLine());
             Node[] nodes = new Node[nodeLength];
@@ -44,36 +44,26 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder
             {
                 nodes[i] = new Node(i);
             }
-            
-            string[] connectionsString = System.Text.RegularExpressions.Regex.Split(System.Console.ReadLine(), ", "); // "0 1, 1 2, 2 3"            
 
-            foreach (var connection in connectionsString)
+            string connectionsLine = Console.ReadLine();
+            if (!string.IsNullOrEmpty(connectionsLine))
             {
-                string[] nodeArray = connection.Split(' ');
-                Node nodeOne = nodes[int.Parse(nodeArray[0])];
-                Node nodeTwo = nodes[int.Parse(nodeArray[1])];
+                string[] connectionsString = Regex.Split(connectionsLine, ", "); // "0 1, 1 2, 2 3"
+                foreach (var connection in connectionsString)
+                {
+                    string[] nodeArray = connection.Split(' ');
+                    Node nodeOne = nodes[int.Parse(nodeArray[0])];
+                    Node nodeTwo = nodes[int.Parse(nodeArray[1])];
 
-                nodeOne.Neighbours.Add(nodeTwo);
-                nodeTwo.Neighbours.Add(nodeOne);
+                    nodeOne.Neighbours.Add(nodeTwo);
+                    nodeTwo.Neighbours.Add(nodeOne);
+                }
             }
 
             string[] shortestPathString = Regex.Split(Console.ReadLine(), " "); // 0 4
-            PathTraveler.RunAlgorithm(nodes[int.Parse(shortestPathString[0])], nodes[int.Parse(shortestPathString[1])]);
-            //Path shortestPath = PathTraveler.RunAlgorithm(nodes[int.Parse(shortestPathString[0])], nodes[int.Parse(shortestPathString[1])]);
-            //string output = string.Empty;
+            string output = PathTraveler.RunAlgorithm(nodes[int.Parse(shortestPathString[0])], nodes[int.Parse(shortestPathString[1])]);
 
-            //for (int i = 0; i < shortestPath.listOfPath.Count; i++)
-            //{
-            //    var connection = shortestPath.listOfPath[i];
-            //    output += connection.Node1.Id;
-
-            //    if (i < shortestPath.listOfPath.Count - 1)
-            //    {
-            //        output += ", ";
-            //    }
-            //}
-
-            //Console.WriteLine(output);
+            Console.WriteLine(output);
 
             // Ni får *inte* göra några fler ändringar efter denna linje utanför denna
             // metods kropp.

@@ -11,7 +11,7 @@ namespace NodeTransportationLimited.Graphs
             Neighbours = new List<Node>();
 		}
 
-        public Node PreviuosNode { get; set; }
+        public Node PreviousNode { get; set; }
         public List<Node> Neighbours { get; set; }
         public int DistanceFromStart { get; set; }
         public int Id { get; set; }

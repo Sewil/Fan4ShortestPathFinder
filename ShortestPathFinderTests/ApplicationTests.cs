@@ -138,13 +138,13 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
 
             string[] nodes = Regex.Split(ShortestPathOutput(output), ", ");
 
-            Assert.IsTrue(nodes.Length == 3);
+            Assert.IsTrue(nodes.Length == 3 && nodes[0] == "0" && nodes[nodes.Length-1] == "3");
         }
         
         /// <exclude />
         public string ShortestPathOutput(string fullOutput)
         {
-            return fullOutput.Substring(fullOutput.IndexOf(newLine) + 1, fullOutput.Length - 1);
+            return fullOutput.Substring(readyStr.Length);
         }
 
         /// <exclude />
