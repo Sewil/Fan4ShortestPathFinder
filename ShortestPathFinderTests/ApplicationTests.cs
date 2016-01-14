@@ -144,7 +144,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
         /// <exclude />
         public string ShortestPathOutput(string fullOutput)
         {
-            return fullOutput.Substring(readyStr.Length);
+            return Regex.Split(fullOutput.Substring(readyStr.Length),"\r\n")[1];
         }
 
         /// <exclude />
