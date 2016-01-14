@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
-namespace NodeTransportationLimited.Graphs
+﻿namespace NodeTransportationLimited.Graphs
 {
-	static class PathTraveler
+    static class PathTraveler
 	{
 		//get nr of Nodes, do something!
 		//get endNode, save
@@ -37,7 +30,7 @@ namespace NodeTransportationLimited.Graphs
 
 		//how do we know that this is the shortest? 
 		
-		public static Path Run_Algorithm(Node firstNode, Node endNode)
+		public static Path RunAlgorithm(Node startNode, Node endNode)
 		{
             return null;
 		}

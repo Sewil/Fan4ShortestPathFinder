@@ -11,86 +11,79 @@
 // och anropa sedan de klassernas metoder från metoden Application.Run() som
 // finns i denna fil.
 
-
-
 namespace NodeTransportationLimited.Graphs.ShortestPathFinder
 {
-	/// <summary>
-	/// Denna klass startar Shortest Path Finder-programmet. <b>VARNING: Inga
-	/// ändringar får göras till denna klass förrutom där det anges att det är
-	/// tillåtet i dokumentationen.</b>
-	/// </summary>
-	public static class Application
-	{
-		/// <summary>
-		/// Startar exekveringen av Shortest Path Finder-programmet. Metoden anropas
-		/// från Application.Main() för att starta programmet, men den anropas även
-		/// vid testning. Då projektet överlämnas till Lernia Consulting AB så ger
-		/// metoden korrekt utdata för endast två testfall. Detta är enbart för
-		/// ett demonstrationssyfte och ska tas bort.<br/><br/>
-		/// 
-		/// <b>VARNING: Ändringar får göras i metodens <i>kropp</i>
-		/// (eng. <i>body</i>) men i övrigt får metoden inte ändras.</b>
-		/// </summary>
-		public static void Run()
-		{
+    /// <summary>
+    /// Denna klass startar Shortest Path Finder-programmet. <b>VARNING: Inga
+    /// ändringar får göras till denna klass förrutom där det anges att det är
+    /// tillåtet i dokumentationen.</b>
+    /// </summary>
+    public static class Application
+    {
+        /// <summary>
+        /// Startar exekveringen av Shortest Path Finder-programmet. Metoden anropas
+        /// från Application.Main() för att starta programmet, men den anropas även
+        /// vid testning. Då projektet överlämnas till Lernia Consulting AB så ger
+        /// metoden korrekt utdata för endast två testfall. Detta är enbart för
+        /// ett demonstrationssyfte och ska tas bort.<br/><br/>
+        /// 
+        /// <b>VARNING: Ändringar får göras i metodens <i>kropp</i>
+        /// (eng. <i>body</i>) men i övrigt får metoden inte ändras.</b>
+        /// </summary>
+        public static void Run()
+        {
+            System.Console.WriteLine("Provide graph data now.");
 
-			var ConnectionsList = new System.Collections.Generic.List<Connection>(262144);
+            int nodeLength = int.Parse(System.Console.ReadLine());
+            Node[] nodes = new Node[nodeLength];
 
-			System.Console.WriteLine("Provide graph data now.");
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                nodes[i] = new Node(i);
+            }
 
-			string nrOfNodes = System.Console.ReadLine();
-			string edges = System.Console.ReadLine();//"0 1, 1 2, 2 3"
-			string findPath = System.Console.ReadLine();//"0 4"
+            string[] connectionsString = System.Text.RegularExpressions.Regex.Split(System.Console.ReadLine(), ", "); // "0 1, 1 2, 2 3"
+            var connections = new System.Collections.Generic.List<Connection>(262144);
 
-			int nodes = int.Parse(nrOfNodes);
+            foreach (var connection in connectionsString)
+            {
+                string[] nodeArray = connection.Split(' ');
+                Node nodeOne = nodes[int.Parse(nodeArray[0])];
+                Node nodeTwo = nodes[int.Parse(nodeArray[1])];
 
-			Node[] nodesArray = new Node[nodes];
-			for (int i = 0; i < nodesArray.Length; i++)
-			{
-				nodesArray[i] = new Node(i);
-			}
+                connections.Add(new Connection(nodeOne, nodeTwo));
+            }
 
-			string[] connectionArray = System.Text.RegularExpressions.Regex.Split(edges, ", ");//"0 1"
-			foreach (var connection in connectionArray)
-			{
-				string[] nodeArray = System.Text.RegularExpressions.Regex.Split(connection, " ");
+            string[] shortestPathString = System.Text.RegularExpressions.Regex.Split(System.Console.ReadLine(), " "); // 0 4
+            Path shortestPath = PathTraveler.RunAlgorithm(nodes[int.Parse(shortestPathString[0])], nodes[int.Parse(shortestPathString[1])]);
+            string output = string.Empty;
 
-				ConnectionsList.Add(new Connection(nodesArray[int.Parse(nodeArray[0])], nodesArray[int.Parse(nodeArray[1])]));
-			}
+            for (int i = 0; i < shortestPath.listOfPath.Count; i++)
+            {
+                var connection = shortestPath.listOfPath[i];
+                output += connection.Node1.Id;
 
-			string[] firstEndNodes = System.Text.RegularExpressions.Regex.Split(findPath, " ");
-			int firstNode = int.Parse(firstEndNodes[0]);
-			int endNode = int.Parse(firstEndNodes[1]);
+                if (i < shortestPath.listOfPath.Count - 1)
+                {
+                    output += ", ";
+                }
+            }
 
-			Path shortestPath = PathTraveler.Run_Algorithm(nodesArray[firstNode], nodesArray[endNode]);
-			string output = null;
-			for (int i = 0; i < shortestPath.listOfPath.Count; i++)
-			{
-				var connection = shortestPath.listOfPath[i];
-				output += connection.Node1.Id.ToString();
-				if(i == shortestPath.listOfPath.Count-1)
-				{
-					break;
-				}
-				output += ", ";
-			}
-			
-			System.Console.WriteLine(output);
+            System.Console.WriteLine(output);
 
-			// Ni får *inte* göra några fler ändringar efter denna linje utanför denna
-			// metods kropp.
-		}
+            // Ni får *inte* göra några fler ändringar efter denna linje utanför denna
+            // metods kropp.
+        }
 
-		/// <summary>
-		/// Anropas när programmet startas.<br/><br/>
-		/// 
-		/// <b>VARNING: Denna metod får inte ändrans på något sätt.</b>
-		/// </summary>
-		/// <exclude/>
-		public static void Main()
-		{
-			Run();
-		}
-	}
+        /// <summary>
+        /// Anropas när programmet startas.<br/><br/>
+        /// 
+        /// <b>VARNING: Denna metod får inte ändrans på något sätt.</b>
+        /// </summary>
+        /// <exclude/>
+        public static void Main()
+        {
+            Run();
+        }
+    }
 }
