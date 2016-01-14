@@ -1,6 +1,9 @@
-﻿namespace NodeTransportationLimited.Graphs
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace NodeTransportationLimited.Graphs
 {
-    static class PathTraveler
+	static class PathTraveler
 	{
 		//get nr of Nodes, do something!
 		//get endNode, save
@@ -30,9 +33,31 @@
 
 		//how do we know that this is the shortest? 
 		
-		public static Path RunAlgorithm(Node startNode, Node endNode)
+		public static void RunAlgorithm(Node s, Node endNode)
 		{
-            return null;
+			Queue<Node> nodeQueue = new Queue<Node>();
+			
+			s.DistanceFromStart = 0;
+
+			nodeQueue.Enqueue(s);
+			
+			while (nodeQueue.Any())
+			{
+				var v = nodeQueue.Dequeue();
+
+                foreach (var w in v.Neighbours)
+                {
+                    if (!w.Visited)
+                    {
+                        w.DistanceFromStart = v.DistanceFromStart + 1;
+                        w.Path = v.Path;
+                        nodeQueue.Enqueue(w);
+                    }
+
+                }
+			}
+
+			//return null;
 		}
 	}
 }

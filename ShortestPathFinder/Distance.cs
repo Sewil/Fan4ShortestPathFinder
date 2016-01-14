@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace NodeTransportationLimited.Graphs
 {
-    class Path
+    class Distance
     {
-        
-	public List<Connection> listOfPath = new List<Connection>();
+        public int DistanceFromStart { get; set; }
+        public Node PreviousNode { get; set; }
+
     }
 }

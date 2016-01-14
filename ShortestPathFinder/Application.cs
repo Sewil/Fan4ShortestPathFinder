@@ -11,6 +11,9 @@
 // och anropa sedan de klassernas metoder från metoden Application.Run() som
 // finns i denna fil.
 
+using System;
+using System.Text.RegularExpressions;
+
 namespace NodeTransportationLimited.Graphs.ShortestPathFinder
 {
     /// <summary>
@@ -41,9 +44,8 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder
             {
                 nodes[i] = new Node(i);
             }
-
-            string[] connectionsString = System.Text.RegularExpressions.Regex.Split(System.Console.ReadLine(), ", "); // "0 1, 1 2, 2 3"
-            var connections = new System.Collections.Generic.List<Connection>(262144);
+            
+            string[] connectionsString = System.Text.RegularExpressions.Regex.Split(System.Console.ReadLine(), ", "); // "0 1, 1 2, 2 3"            
 
             foreach (var connection in connectionsString)
             {
@@ -51,25 +53,28 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder
                 Node nodeOne = nodes[int.Parse(nodeArray[0])];
                 Node nodeTwo = nodes[int.Parse(nodeArray[1])];
 
-                connections.Add(new Connection(nodeOne, nodeTwo));
+                nodeOne.Neighbours.Add(nodeTwo);
+                nodeTwo.Neighbours.Add(nodeOne);
+
+                
             }
 
-            string[] shortestPathString = System.Text.RegularExpressions.Regex.Split(System.Console.ReadLine(), " "); // 0 4
-            Path shortestPath = PathTraveler.RunAlgorithm(nodes[int.Parse(shortestPathString[0])], nodes[int.Parse(shortestPathString[1])]);
-            string output = string.Empty;
+            string[] shortestPathString = Regex.Split(Console.ReadLine(), " "); // 0 4
+            //Path shortestPath = PathTraveler.RunAlgorithm(nodes[int.Parse(shortestPathString[0])], nodes[int.Parse(shortestPathString[1])]);
+            //string output = string.Empty;
 
-            for (int i = 0; i < shortestPath.listOfPath.Count; i++)
-            {
-                var connection = shortestPath.listOfPath[i];
-                output += connection.Node1.Id;
+            //for (int i = 0; i < shortestPath.listOfPath.Count; i++)
+            //{
+            //    var connection = shortestPath.listOfPath[i];
+            //    output += connection.Node1.Id;
 
-                if (i < shortestPath.listOfPath.Count - 1)
-                {
-                    output += ", ";
-                }
-            }
+            //    if (i < shortestPath.listOfPath.Count - 1)
+            //    {
+            //        output += ", ";
+            //    }
+            //}
 
-            System.Console.WriteLine(output);
+            //Console.WriteLine(output);
 
             // Ni får *inte* göra några fler ändringar efter denna linje utanför denna
             // metods kropp.
