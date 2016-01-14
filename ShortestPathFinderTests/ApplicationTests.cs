@@ -148,8 +148,8 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
 
             for (int i = 0; i < path.Length - 1; i++)
             {
-                compare = path[i] + path[i + 1];
-                compareReverse = path[i + 1] + path[i];
+                compare = path[i] + " " + path[i + 1];
+                compareReverse = path[i + 1] + " " + path[i];
 
                 foreach (var pair in connectionsArray)
                 {
@@ -176,7 +176,25 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
             Assert.IsTrue(path.Length == 3 && path[0] == "0" && path[path.Length - 1] == "3");
 
         }
-        
+
+        /// <exclude />
+        [TestMethod]
+        public void RUN_NoConnection()
+        {
+            string connections = "0 1, 0 2, 2 3, 1 3";
+            string[] connectionsArray = Regex.Split(connections, ", ");
+
+            string output = TestUtilities.RunApp(
+                "10",
+                "0 1, 0 2, 2 3, 1 3",
+                "0 7"
+            );
+
+            Assert.AreEqual(output, ActualOutput(""));
+
+
+        }
+
         /// <exclude />
         public string ShortestPathOutput(string fullOutput)
         {
