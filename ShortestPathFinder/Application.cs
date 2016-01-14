@@ -55,11 +55,10 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder
 
                 nodeOne.Neighbours.Add(nodeTwo);
                 nodeTwo.Neighbours.Add(nodeOne);
-
-                
             }
 
             string[] shortestPathString = Regex.Split(Console.ReadLine(), " "); // 0 4
+            PathTraveler.RunAlgorithm(nodes[int.Parse(shortestPathString[0])], nodes[int.Parse(shortestPathString[1])]);
             //Path shortestPath = PathTraveler.RunAlgorithm(nodes[int.Parse(shortestPathString[0])], nodes[int.Parse(shortestPathString[1])]);
             //string output = string.Empty;
 

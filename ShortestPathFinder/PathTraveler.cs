@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NodeTransportationLimited.Graphs
@@ -38,6 +39,7 @@ namespace NodeTransportationLimited.Graphs
 			Queue<Node> nodeQueue = new Queue<Node>();
 			
 			s.DistanceFromStart = 0;
+			s.PreviuosNode = s;
 
 			nodeQueue.Enqueue(s);
 			
@@ -45,16 +47,23 @@ namespace NodeTransportationLimited.Graphs
 			{
 				var v = nodeQueue.Dequeue();
 
-                foreach (var w in v.Neighbours)
+                if (v.Id == endNode.Id)
                 {
-                    if (!w.Visited)
-                    {
-                        w.DistanceFromStart = v.DistanceFromStart + 1;
-                        w.Path = v.Path;
-                        nodeQueue.Enqueue(w);
-                    }
 
+
+                    return; 
                 }
+
+				foreach (var w in v.Neighbours)
+				{
+					if (!w.IsVisited)
+					{
+						w.DistanceFromStart = v.DistanceFromStart + 1;
+						w.PreviuosNode = v;
+						nodeQueue.Enqueue(w);
+						Console.WriteLine("Found node" + w.Id + ". With distance " + w.DistanceFromStart + " added to queue");
+					}
+				}
 			}
 
 			//return null;

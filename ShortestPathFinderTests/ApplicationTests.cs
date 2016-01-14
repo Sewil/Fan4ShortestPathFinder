@@ -140,7 +140,6 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
 
             Assert.IsTrue(nodes.Length == 3);
         }
-
         
         /// <exclude />
         public string ShortestPathOutput(string fullOutput)
