@@ -4,20 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
 {
-    /// <summary>
-    /// Denna klass är till för att visa hur enhetstester kan skrivas för att testa
-    /// Shortest Path Finder-programmet. Klassen innehåller två enhetstester som
-    /// lyckas om testerna körs när projektet överlämnas till
-    /// <i>Lernia Consulting AB</i>. Detta beror på att programmet ger i nuläget
-    /// korrekt utdata för just de två enhetstesterna.<br/><br/>
-    /// 
-    /// Klassen får utökas med fler enhetstester, och andra klasser innehållande 
-    /// tester får också skapas.<br/><br/>
-    /// 
-    /// Observera att de två enhetstesterna använder sig av en metod för att köra
-    /// programmet för de parametrar som önskas, och denna metod kan också användas
-    /// fortsättningsvis.
-    /// </summary>
+    /// <exclude/>
     [TestClass]
     public class ApplicationTests
     {

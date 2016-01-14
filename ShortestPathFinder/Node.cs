@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 
 namespace NodeTransportationLimited.Graphs
-{
+{/// <summary>
+ /// Den här klassen innehåller beskriver noden som bygger grafen
+ /// </summary>
     class Node
     {
 		public Node(int id)
