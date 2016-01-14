@@ -130,15 +130,51 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
         [TestMethod]
         public void Run_OrdinaryGraphWithMultipleShortestPaths()
         {
+            string connections = "0 1, 0 2, 2 3, 1 3";
+            string[] connectionsArray = Regex.Split(connections, ", ");
+
             string output = TestUtilities.RunApp(
                 "4",
                 "0 1, 0 2, 2 3, 1 3",
                 "0 3"
             );
 
-            string[] nodes = Regex.Split(ShortestPathOutput(output), ", ");
+            string[] path = Regex.Split(ShortestPathOutput(output), ", ");
+          
+            string compare = string.Empty;
+            string compareReverse = string.Empty;
 
-            Assert.IsTrue(nodes.Length == 3 && nodes[0] == "0" && nodes[nodes.Length-1] == "3");
+            bool isFound = false;
+
+            for (int i = 0; i < path.Length - 1; i++)
+            {
+                compare = path[i] + path[i + 1];
+                compareReverse = path[i + 1] + path[i];
+
+                foreach (var pair in connectionsArray)
+                {
+                    if (compare == pair || compareReverse == pair)
+                    {
+                        isFound = true;
+                    }
+                }
+
+                if (!isFound)
+                {
+                    Assert.Fail(" 1 ");
+                }
+
+                isFound = false;
+            }
+
+
+            if (path.Length != 3)
+            {
+                Assert.Fail(" 2 ");
+            }
+
+            Assert.IsTrue(path.Length == 3 && path[0] == "0" && path[path.Length - 1] == "3");
+
         }
         
         /// <exclude />
