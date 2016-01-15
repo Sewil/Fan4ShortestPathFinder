@@ -122,7 +122,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
 
             string output = TestUtilities.RunApp(
                 "4",
-                "0 1, 0 2, 2 3, 1 3",
+                connections,
                 "0 3"
             );
 
@@ -130,28 +130,24 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
           
             string compare = string.Empty;
             string compareReverse = string.Empty;
-
-            bool isFound = false;
-
             for (int i = 0; i < path.Length - 1; i++)
             {
                 compare = path[i] + " " + path[i + 1];
                 compareReverse = path[i + 1] + " " + path[i];
 
+                bool found = false;
                 foreach (var pair in connectionsArray)
                 {
                     if (compare == pair || compareReverse == pair)
                     {
-                        isFound = true;
+                        found = true;
                     }
                 }
 
-                if (!isFound)
+                if (!found)
                 {
                     Assert.Fail(" 1 ");
                 }
-
-                isFound = false;
             }
 
 
@@ -164,13 +160,13 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
 
         }
 
+        /// <summary>
+        /// Tests that it returns an empty string if the specified path doesn't have an edge to it.
+        /// </summary>
         /// <exclude />
         [TestMethod]
-        public void RUN_NoConnection()
+        public void Run_NoConnection()
         {
-            string connections = "0 1, 0 2, 2 3, 1 3";
-            string[] connectionsArray = Regex.Split(connections, ", ");
-
             string output = TestUtilities.RunApp(
                 "10",
                 "0 1, 0 2, 2 3, 1 3",
@@ -178,8 +174,6 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
             );
 
             Assert.AreEqual(output, ActualOutput(""));
-
-
         }
 
         /// <exclude />
