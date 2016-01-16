@@ -13,8 +13,6 @@ namespace NodeTransportationLimited.Graphs
         public static double MAX_CONNECTIONS
         {
             get { return Math.Pow(MAX_NODES, 2); }
-
         }
-           
     }
 }

@@ -80,46 +80,244 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
         }
 
         /// <summary>
-        /// Tests that it returns the same node when start and end node is the same
         /// </summary>
         /// <exclude/>
         [TestMethod]
-        public void Run_OrdinaryGraphWithSameNodePath()
+        public void Run_OneNode_From0To0()
+        {
+            string output = TestUtilities.RunApp(
+                "1",
+                "",
+                "0 0"
+            );
+
+            Assert.AreEqual(output, ActualOutput("0"));
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_OneNodeSelfconnected_From0To0()
+        {
+            string output = TestUtilities.RunApp(
+                "1",
+                "0 0",
+                "0 0"
+            );
+
+            Assert.AreEqual(output, ActualOutput("0"));
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_TwoNodes_From0To1()
+        {
+            string output = TestUtilities.RunApp(
+                "2",
+                "0 1",
+                "0 1"
+            );
+
+            Assert.AreEqual(output, ActualOutput("0, 1"));
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_TwoNodesDisconnected_From0To1()
+        {
+            string output = TestUtilities.RunApp(
+                "2",
+                "",
+                "0 1"
+            );
+
+            Assert.AreEqual(output, ActualOutput(""));
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_MultipleNodes_From1To5()
+        {
+            string output = TestUtilities.RunApp(
+                "6",
+                "0 1, 1 4, 4 5",
+                "1 5"
+            );
+
+            Assert.AreEqual(output, ActualOutput("1, 4, 5"));
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_Interconnected_From3To0()
+        {
+            string output = TestUtilities.RunApp(
+                "5",
+                "0 0, 0 1, 0 2, 0 3, 0 4, 1 1, 1 2, 1 3, 1 4, 2 2, 2 3, 2 4, 3 3, 3 4, 4 4",
+                "3 0"
+            );
+
+            Assert.AreEqual(output, ActualOutput("3, 0"));
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_Disconnected_From0To0()
+        {
+            string output = TestUtilities.RunApp(
+                "420",
+                "",
+                "0 0"
+            );
+
+            Assert.AreEqual(output, ActualOutput("0"));
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_Selfconnected_From4To1()
+        {
+            string output = TestUtilities.RunApp(
+                "420",
+                "4 4, 4 2, 0 1, 1 3, 4 5, 3 2, 4 3",
+                "4 1"
+            );
+
+            Assert.AreEqual(output, ActualOutput("4, 3, 1"));
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_OnlySelfconnected_From4To1()
+        {
+            string output = TestUtilities.RunApp(
+                "420",
+                "4 4, 0 1, 1 3, 3 2",
+                "4 1"
+            );
+
+            Assert.AreEqual(output, ActualOutput(""));
+        }
+
+        /// <summary></summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_OnlySelfconnected_From4To4()
+        {
+            string output = TestUtilities.RunApp(
+                "420",
+                "4 4, 0 1, 1 3, 3 2",
+                "4 4"
+            );
+
+            Assert.AreEqual(output, ActualOutput("4"));
+        }
+
+        /// <summary></summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_DisconnectedStartNode_From4To1()
+        {
+            string output = TestUtilities.RunApp(
+                "420",
+                "0 1, 1 3, 3 2",
+                "4 1"
+            );
+
+            Assert.AreEqual(output, ActualOutput(""));
+        }
+
+        /// <summary></summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_DisconnectedEndNode_From4To1()
+        {
+            string output = TestUtilities.RunApp(
+                "420",
+                "4 2, 4 5, 4 3, 3 2",
+                "4 1"
+            );
+
+            Assert.AreEqual(output, ActualOutput(""));
+        }
+
+        /// <summary></summary>
+        /// <exclude />
+        [TestMethod]
+        public void Run_MissingShortestPath_From0To7()
         {
             string output = TestUtilities.RunApp(
                 "10",
-                "",
-                "1 1"
+                "0 1, 0 2, 2 3, 1 3",
+                "0 7"
             );
 
-            Assert.AreEqual(output, ActualOutput("1"));
+            Assert.AreEqual(output, ActualOutput(""));
         }
 
-        /// <summary>
-        /// Tests that it returns the same node when start and end node is the same and it has a connection to itself
-        /// </summary>
+        /// <summary></summary>
         /// <exclude/>
         [TestMethod]
-        public void Run_OrdinaryGraphWithSameNodePath2()
+        public void Run_MultipleSelfConnected_From4To1()
         {
             string output = TestUtilities.RunApp(
-                "30",
-                "2 2",
-                "2 2"
+                "420",
+                "4 2, 4 5, 4 3, 3 2, 1 0, 1 3, 1 1, 3 3, 2 2, 5 5",
+                "4 1"
             );
 
-            Assert.AreEqual(output, ActualOutput("2"));
+            Assert.AreEqual(output, ActualOutput("4, 3, 1"));
         }
 
-        /// <summary>
-        /// Tests that it can handle having multiple shortest paths and give one of them as a result
-        /// </summary>
+        /// <summary></summary>
+        /// <exclude/>
         [TestMethod]
-        public void Run_OrdinaryGraphWithMultipleShortestPaths()
+        public void Run_StartEndDirectlyConnected_From3To1()
+        {
+            string output = TestUtilities.RunApp(
+                "420",
+                "4 2, 4 5, 4 3, 3 2, 1 0, 1 3, 1 1, 3 3, 2 2, 5 5",
+                "3 1"
+            );
+
+            Assert.AreEqual(output, ActualOutput("3, 1"));
+        }
+
+        /// <summary></summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_RandomGraph_From0To10()
+        {
+            string output = TestUtilities.RunApp(
+                "12",
+                "0 0, 0 1, 1 4, 4 5, 2 4, 5 10, 2 6, 8 6, 6 10, 10 11, 9 6, 8 10, 8 7, 0 11, 11 3, 11 7, 1 6, 0 9, 7 9",
+                "0 10"
+            );
+
+            Assert.AreEqual(output, ActualOutput("0, 11, 10"));
+        }
+
+        /// <summary></summary>
+        /// <exclude/>
+        [TestMethod]
+        public void Run_MultipleShortestPaths_From0To3()
         {
             string connections = "0 1, 0 2, 2 3, 1 3";
-            string[] connectionsArray = Regex.Split(connections, ", ");
-
             string output = TestUtilities.RunApp(
                 "4",
                 connections,
@@ -127,13 +325,21 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
             );
 
             string[] path = Regex.Split(ShortestPathOutput(output), ", ");
-          
+            Assert.IsTrue(IsOneOfMultipleShortestPaths(path, connections, 3, "0", "3"));
+        }
+
+        /// <exclude />
+        public bool IsOneOfMultipleShortestPaths(string[] calculatedPath, string connections, int shortestPathLength, string startNode, string endNode)
+        {
+            bool valid = calculatedPath.Length == shortestPathLength && calculatedPath[0] == startNode && calculatedPath[calculatedPath.Length - 1] == endNode;
+
             string compare = string.Empty;
             string compareReverse = string.Empty;
-            for (int i = 0; i < path.Length - 1; i++)
-            {
-                compare = path[i] + " " + path[i + 1];
-                compareReverse = path[i + 1] + " " + path[i];
+            string[] connectionsArray = Regex.Split(connections, ", ");
+            for (int i = 0; i < calculatedPath.Length - 1; i++)
+            { // går igenom alla kanter i den kortaste stigen och försäkrar sig om att kanterna faktiskt finns i grafen
+                compare = calculatedPath[i] + " " + calculatedPath[i + 1];
+                compareReverse = calculatedPath[i + 1] + " " + calculatedPath[i];
 
                 bool found = false;
                 foreach (var pair in connectionsArray)
@@ -146,40 +352,18 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
 
                 if (!found)
                 {
-                    Assert.Fail(" 1 ");
+                    valid = false;
+                    break;
                 }
             }
 
-
-            if (path.Length != 3)
-            {
-                Assert.Fail(" 2 ");
-            }
-
-            Assert.IsTrue(path.Length == 3 && path[0] == "0" && path[path.Length - 1] == "3");
-
-        }
-
-        /// <summary>
-        /// Tests that it returns an empty string if the specified path doesn't have an edge to it.
-        /// </summary>
-        /// <exclude />
-        [TestMethod]
-        public void Run_NoConnection()
-        {
-            string output = TestUtilities.RunApp(
-                "10",
-                "0 1, 0 2, 2 3, 1 3",
-                "0 7"
-            );
-
-            Assert.AreEqual(output, ActualOutput(""));
+            return valid;
         }
 
         /// <exclude />
         public string ShortestPathOutput(string fullOutput)
         {
-            return Regex.Split(fullOutput.Substring(readyStr.Length),"\r\n")[1];
+            return Regex.Split(fullOutput.Substring(readyStr.Length), "\r\n")[1];
         }
 
         /// <exclude />
