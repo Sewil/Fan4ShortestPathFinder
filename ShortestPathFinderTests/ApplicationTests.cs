@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NodeTransportationLimited.Testing;
+using ShortestPathFinderTests;
 using System.Text.RegularExpressions;
 
 namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
@@ -91,7 +92,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "0 0"
             );
 
-            Assert.AreEqual(output, ActualOutput("0"));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, "0"));
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "0 0"
             );
 
-            Assert.AreEqual(output, ActualOutput("0"));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, "0"));
         }
 
         /// <summary>
@@ -121,7 +122,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "0 1"
             );
 
-            Assert.AreEqual(output, ActualOutput("0, 1"));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, "0, 1"));
         }
 
         /// <summary>
@@ -136,7 +137,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "0 1"
             );
 
-            Assert.AreEqual(output, ActualOutput(""));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, ""));
         }
 
         /// <summary>
@@ -151,7 +152,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "1 5"
             );
 
-            Assert.AreEqual(output, ActualOutput("1, 4, 5"));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, "1, 4, 5"));
         }
 
         /// <summary>
@@ -166,7 +167,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "3 0"
             );
 
-            Assert.AreEqual(output, ActualOutput("3, 0"));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, "3, 0"));
         }
 
         /// <summary>
@@ -181,7 +182,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "0 0"
             );
 
-            Assert.AreEqual(output, ActualOutput("0"));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, "0"));
         }
 
         /// <summary>
@@ -196,7 +197,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "4 1"
             );
 
-            Assert.AreEqual(output, ActualOutput("4, 3, 1"));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, "4, 3, 1"));
         }
 
         /// <summary>
@@ -211,7 +212,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "4 1"
             );
 
-            Assert.AreEqual(output, ActualOutput(""));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, ""));
         }
 
         /// <summary></summary>
@@ -225,7 +226,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "4 4"
             );
 
-            Assert.AreEqual(output, ActualOutput("4"));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, "4"));
         }
 
         /// <summary></summary>
@@ -239,7 +240,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "4 1"
             );
 
-            Assert.AreEqual(output, ActualOutput(""));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, ""));
         }
 
         /// <summary></summary>
@@ -253,7 +254,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "4 1"
             );
 
-            Assert.AreEqual(output, ActualOutput(""));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, ""));
         }
 
         /// <summary></summary>
@@ -267,7 +268,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "0 7"
             );
 
-            Assert.AreEqual(output, ActualOutput(""));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, ""));
         }
 
         /// <summary></summary>
@@ -281,7 +282,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "4 1"
             );
 
-            Assert.AreEqual(output, ActualOutput("4, 3, 1"));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, "4, 3, 1"));
         }
 
         /// <summary></summary>
@@ -295,7 +296,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "3 1"
             );
 
-            Assert.AreEqual(output, ActualOutput("3, 1"));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, "3, 1"));
         }
 
         /// <summary></summary>
@@ -309,7 +310,7 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "0 10"
             );
 
-            Assert.AreEqual(output, ActualOutput("0, 11, 10"));
+            Assert.AreEqual(output, ApplicationTestsUtilities.ActualOutput(readyStr, "0, 11, 10"));
         }
 
         /// <summary></summary>
@@ -324,52 +325,8 @@ namespace NodeTransportationLimited.Graphs.ShortestPathFinder.Testing
                 "0 3"
             );
 
-            string[] path = Regex.Split(ShortestPathOutput(output), ", ");
-            Assert.IsTrue(IsOneOfMultipleShortestPaths(path, connections, 3, "0", "3"));
-        }
-
-        /// <exclude />
-        public bool IsOneOfMultipleShortestPaths(string[] calculatedPath, string connections, int shortestPathLength, string startNode, string endNode)
-        {
-            bool valid = calculatedPath.Length == shortestPathLength && calculatedPath[0] == startNode && calculatedPath[calculatedPath.Length - 1] == endNode;
-
-            string compare = string.Empty;
-            string compareReverse = string.Empty;
-            string[] connectionsArray = Regex.Split(connections, ", ");
-            for (int i = 0; i < calculatedPath.Length - 1; i++)
-            { // går igenom alla kanter i den kortaste stigen och försäkrar sig om att kanterna faktiskt finns i grafen
-                compare = calculatedPath[i] + " " + calculatedPath[i + 1];
-                compareReverse = calculatedPath[i + 1] + " " + calculatedPath[i];
-
-                bool found = false;
-                foreach (var pair in connectionsArray)
-                {
-                    if (compare == pair || compareReverse == pair)
-                    {
-                        found = true;
-                    }
-                }
-
-                if (!found)
-                {
-                    valid = false;
-                    break;
-                }
-            }
-
-            return valid;
-        }
-
-        /// <exclude />
-        public string ShortestPathOutput(string fullOutput)
-        {
-            return Regex.Split(fullOutput.Substring(readyStr.Length), "\r\n")[1];
-        }
-
-        /// <exclude />
-        public string ActualOutput(string output)
-        {
-            return readyStr + newLine + output + newLine;
+            string[] path = Regex.Split(ApplicationTestsUtilities.ShortestPathOutput(readyStr, output), ", ");
+            Assert.IsTrue(ApplicationTestsUtilities.IsOneOfMultipleShortestPaths(path, connections, 3, "0", "3"));
         }
     }
 }
